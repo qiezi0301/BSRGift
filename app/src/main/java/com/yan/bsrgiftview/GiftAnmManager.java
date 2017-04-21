@@ -463,7 +463,7 @@ public class GiftAnmManager {
                         BSRPathPoint carOne = new BSRPathPoint();
                         carOne.setDuring(during);
                         carOne.setInterpolator(new LinearInterpolator());
-                        carOne.setRes(gifs.get(index));
+                        carOne.setRes(gifs.get(index++ % 7));
                         carOne.adjustScaleInScreen(0.8f);
                         carOne.setAntiAlias(true);
                         bsrGiftView.addBSRPathPointAndDraw(carOne);

@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAddGift.setOnClickListener(this);
 
         zip = new ZIP();
-        downloadUrl = "http://static.huajiao.com/huajiao/gifteffect/90049_31.zip";
+        downloadUrl = "http://static.huajiao.com/huajiao/gifteffect/10153_30.zip";
         fileName = downloadUrl.substring(downloadUrl.lastIndexOf("/"));
 
         foldername = fileName.substring(fileName.lastIndexOf("/"), fileName.lastIndexOf(".")); //提取文件名作为文件夹名字
@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         Toast.makeText(this, "遍历图片", Toast.LENGTH_SHORT).show();
 
-    }
+     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
