@@ -3,14 +3,12 @@ package com.yan.bsrgift;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
-
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 
@@ -35,8 +33,12 @@ public class BSRPathPoint extends BSRPathBase {
         this.interpolator = interpolator;
     }
 
-    public void setRes(Context context, int res) {
+/*    public void setRes(Context context, int res) {
         this.res = BitmapFactory.decodeResource(context.getResources(), res);
+    }*/
+
+    public void setRes(String res) {
+        this.res = BitmapFactory.decodeFile(res);
     }
 
     public void setAntiAlias(boolean isAlias) {

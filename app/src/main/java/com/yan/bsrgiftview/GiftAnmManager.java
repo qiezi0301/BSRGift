@@ -1,10 +1,7 @@
 package com.yan.bsrgiftview;
 
 import android.content.Context;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
-import android.widget.TextView;
 
 import com.yan.bsrgift.BSRGiftLayout;
 import com.yan.bsrgift.BSRGiftView;
@@ -16,8 +13,6 @@ import com.yan.bsrgift.OnAnmEndListener;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -88,7 +83,7 @@ public class GiftAnmManager {
         this.context = context;
         this.giftLayout = giftLayout;
     }
-
+/*
     public void showCarOne() {
         final BSRGiftView bsrGiftView = new BSRGiftView(context);
         bsrGiftView.setAlphaTrigger(-1);
@@ -275,7 +270,8 @@ public class GiftAnmManager {
             }
         });
         giftLayout.addChild(bsrPathView);
-    }
+    }*/
+/*
 
     public void showKQ() {
         final BSRGiftView bsrGiftView = new BSRGiftView(context);
@@ -356,8 +352,9 @@ public class GiftAnmManager {
         giftLayout.addChild(bsrPathView);
         bsrGiftView.addBSRPathPoints(bsrPathPoints);
     }
+*/
 
-    public void showDragon() {
+/*    public void showDragon() {
         final BSRGiftView bsrGiftView = new BSRGiftView(context);
         final int during = 60;
         Flowable.interval(during, TimeUnit.MILLISECONDS)
@@ -397,9 +394,112 @@ public class GiftAnmManager {
         bsrPathView.setDuring(2000 * 2);
         giftLayout.setAlphaTrigger(0.99f);
         giftLayout.addChild(bsrPathView);
+    }*/
+
+    /*//播放下载的礼物
+    public void showGift(final String[] gifs) {
+        final BSRGiftView bsrGiftView = new BSRGiftView(context);
+        final int during = 60;
+        Flowable.interval(during, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new Subscriber<Long>() {
+                    Subscription subscription;
+                    int index = 0;
+
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                        subscription = s;
+                        s.request(Long.MAX_VALUE);
+                    }
+
+                    @Override
+                    public void onNext(Long aLong) {
+                        if (index++ < 33) {
+                            BSRPathPoint dragon = new BSRPathPoint();
+                            dragon.setDuring(during + 2);
+                            dragon.setInterpolator(new LinearInterpolator());
+                            dragon.setRes(gifs[index]);
+                            bsrGiftView.addBSRPathPointAndDraw(dragon);
+                        } else {
+                            bsrGiftView.addBSRPathPointAndDraw(null);
+                            subscription.cancel();
+                        }
+                    }
+
+                    public void onError(Throwable t) {
+                    }
+
+                    public void onComplete() {
+                    }
+                });
+        BSRPathView bsrPathView = new BSRPathView();
+        bsrPathView.setChild(bsrGiftView);
+        bsrPathView.setDuring(2000 * 2);
+        giftLayout.setAlphaTrigger(0.99f);
+        giftLayout.addChild(bsrPathView);
+    }*/
+
+
+    public void showGift(final List<String> gifs) {
+        final BSRGiftView bsrGiftView = new BSRGiftView(context);
+        bsrGiftView.setAlphaTrigger(-1);
+
+        final int during = 150;
+        final Subscription[] subscription = new Subscription[1];
+
+        Flowable.interval(during, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new Subscriber<Long>() {
+                    int index = 0;
+
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                        subscription[0] = s;
+                        s.request(Long.MAX_VALUE);
+                    }
+
+                    @Override
+                    public void onNext(Long aLong) {
+                        BSRPathPoint carOne = new BSRPathPoint();
+                        carOne.setDuring(during);
+                        carOne.setInterpolator(new LinearInterpolator());
+                        carOne.setRes(gifs.get(index));
+                        carOne.adjustScaleInScreen(0.8f);
+                        carOne.setAntiAlias(true);
+                        bsrGiftView.addBSRPathPointAndDraw(carOne);
+                    }
+
+                    public void onError(Throwable t) {
+                    }
+
+                    public void onComplete() {
+                    }
+                });
+
+        BSRPathView bsrPathView = new BSRPathView();
+        bsrPathView.setChild(bsrGiftView);
+        bsrPathView.positionInScreen();
+        bsrPathView.addPositionControlPoint(-0.2f, 0.3f);
+        bsrPathView.addPositionControlPoint(-0.2f, 0.3f);
+        bsrPathView.addPositionControlPoint(-0.2f, 0.3f);
+        bsrPathView.addPositionControlPoint(-0.2f, 0.3f);
+        bsrPathView.addPositionControlPoint(-0.2f, 0.3f);
+        bsrPathView.addPositionControlPoint(-0.2f, 0.3f);
+        bsrPathView.addPositionControlPoint(-0.2f, 0.3f);
+        bsrPathView.addPositionControlPoint(-0.2f, 0.3f);
+
+        bsrPathView.setDuring(3000);
+        bsrPathView.addEndListeners(new OnAnmEndListener() {
+            @Override
+            public void onAnimationEnd(BSRPathBase bsrPathPoint) {
+                subscription[0].cancel();
+            }
+        });
+
+        giftLayout.addChild(bsrPathView);
     }
 
-    public void showKiss() {
+    /*public void showKiss() {
         final BSRGiftView bsrGiftView = new BSRGiftView(context);
         int during = 2000;
         bsrGiftView.setAlphaTrigger(0.99f);
@@ -531,5 +631,5 @@ public class GiftAnmManager {
         giftLayout.addChild(bsrPathView);
         bsrGiftView.addBSRPathPoints(bsrPathPoints);
 
-    }
+    }*/
 }
