@@ -5,10 +5,8 @@ import android.view.animation.LinearInterpolator;
 
 import com.yan.bsrgift.BSRGiftLayout;
 import com.yan.bsrgift.BSRGiftView;
-import com.yan.bsrgift.BSRPathBase;
 import com.yan.bsrgift.BSRPathPoint;
 import com.yan.bsrgift.BSRPathView;
-import com.yan.bsrgift.OnAnmEndListener;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -396,10 +394,12 @@ public class GiftAnmManager {
         giftLayout.addChild(bsrPathView);
     }*/
 
-    /*//播放下载的礼物
-    public void showGift(final String[] gifs) {
+    //播放下载的礼物
+    public void showGift(final List<String> gifs) {
         final BSRGiftView bsrGiftView = new BSRGiftView(context);
         final int during = 60;
+
+
         Flowable.interval(during, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new Subscriber<Long>() {
@@ -414,11 +414,11 @@ public class GiftAnmManager {
 
                     @Override
                     public void onNext(Long aLong) {
-                        if (index++ < 33) {
+                        if (index++ < gifs.size()-1) {
                             BSRPathPoint dragon = new BSRPathPoint();
                             dragon.setDuring(during + 2);
                             dragon.setInterpolator(new LinearInterpolator());
-                            dragon.setRes(gifs[index]);
+                            dragon.setRes(context, gifs.get(index));
                             bsrGiftView.addBSRPathPointAndDraw(dragon);
                         } else {
                             bsrGiftView.addBSRPathPointAndDraw(null);
@@ -437,10 +437,10 @@ public class GiftAnmManager {
         bsrPathView.setDuring(2000 * 2);
         giftLayout.setAlphaTrigger(0.99f);
         giftLayout.addChild(bsrPathView);
-    }*/
+    }
 
 
-    public void showGift(final List<String> gifs) {
+/*    public void showGift(final List<String> gifs) {
         final BSRGiftView bsrGiftView = new BSRGiftView(context);
         bsrGiftView.setAlphaTrigger(-1);
 
@@ -479,14 +479,14 @@ public class GiftAnmManager {
         BSRPathView bsrPathView = new BSRPathView();
         bsrPathView.setChild(bsrGiftView);
         bsrPathView.positionInScreen();
-        bsrPathView.addPositionControlPoint(-0.2f, 0.3f);
-        bsrPathView.addPositionControlPoint(-0.2f, 0.3f);
-        bsrPathView.addPositionControlPoint(-0.2f, 0.3f);
-        bsrPathView.addPositionControlPoint(-0.2f, 0.3f);
-        bsrPathView.addPositionControlPoint(-0.2f, 0.3f);
-        bsrPathView.addPositionControlPoint(-0.2f, 0.3f);
-        bsrPathView.addPositionControlPoint(-0.2f, 0.3f);
-        bsrPathView.addPositionControlPoint(-0.2f, 0.3f);
+        bsrPathView.addPositionControlPoint(0f, 0f);
+        bsrPathView.addPositionControlPoint(0f, 0f);
+        bsrPathView.addPositionControlPoint(0f, 0f);
+        bsrPathView.addPositionControlPoint(0f, 0f);
+        bsrPathView.addPositionControlPoint(0f, 0f);
+        bsrPathView.addPositionControlPoint(0f, 0f);
+        bsrPathView.addPositionControlPoint(0f, 0f);
+        bsrPathView.addPositionControlPoint(0f, 0f);
 
         bsrPathView.setDuring(3000);
         bsrPathView.addEndListeners(new OnAnmEndListener() {
@@ -497,7 +497,7 @@ public class GiftAnmManager {
         });
 
         giftLayout.addChild(bsrPathView);
-    }
+    }*/
 
     /*public void showKiss() {
         final BSRGiftView bsrGiftView = new BSRGiftView(context);

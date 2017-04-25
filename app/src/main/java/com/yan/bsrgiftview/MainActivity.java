@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAddGift.setOnClickListener(this);
 
         zip = new ZIP();
-        downloadUrl = "http://static.huajiao.com/huajiao/gifteffect/10153_30.zip";
+        downloadUrl = "http://alcdn.img.xiaoka.tv/20160809/345/3d0/0/3453d02fcb25493d97fb201307d02334.zip";
         fileName = downloadUrl.substring(downloadUrl.lastIndexOf("/"));
 
         foldername = fileName.substring(fileName.lastIndexOf("/"), fileName.lastIndexOf(".")); //提取文件名作为文件夹名字
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.UnZip_gift:
                 File file = new File(cachepath + fileName);
                 try {
-                    ZIP.UnZipFolder(file.toString(), cachepath+"/");
+                    ZIP.UnZipFolder(file.toString(), giftFile+"/");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -3,12 +3,16 @@ package com.yan.bsrgift;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.media.ThumbnailUtils;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 
@@ -37,8 +41,30 @@ public class BSRPathPoint extends BSRPathBase {
         this.res = BitmapFactory.decodeResource(context.getResources(), res);
     }*/
 
-    public void setRes(String res) {
-        this.res = BitmapFactory.decodeFile(res);
+    public void setRes(Context context, String filepath) {
+
+        Bitmap bm = BitmapFactory.decodeFile(filepath);
+
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(dm);
+
+        int screenWidth = dm.widthPixels;               //获取当前屏幕宽度
+        int screenHeight = dm.heightPixels;             //获取当前屏幕高度
+//        float w = (float) screenWidth / bm.getWidth();  //计算当前图片要全屏幕，宽度需要放大尺寸
+//        float h = (float) screenHeight / bm.getHeight();//计算当前图片要全屏，高度需要放大尺寸
+//
+//        if (w >= h)//选取较小尺寸进行放大
+//            w = h;
+//
+//        Matrix matrix = new Matrix();
+//        matrix.postScale(w, w);//设置宽高放大比例（这里为等比例放大）
+        this.res = ThumbnailUtils.extractThumbnail(bm,  screenWidth, screenHeight);
+
+//        BitmapFactory.Options options = new BitmapFactory.Options();
+//        options.inSampleSize = 4;
+//        this.res = BitmapFactory.decodeFile(filepath, options);
+
     }
 
     public void setAntiAlias(boolean isAlias) {
